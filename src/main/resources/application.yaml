@@ -1,0 +1,6 @@
+security:
+  oauth2:
+    resourceserver:
+      jwk:
+        jwk-set-uri: http://127.0.0.1:8080/auth/realms/master/protocol/openid-connect/certs
+
