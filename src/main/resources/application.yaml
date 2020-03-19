@@ -1,6 +1,8 @@
 security:
   oauth2:
+    client:
+      accessTokenUri: http://127.0.0.1:8080/auth/realms/master/protocol/openid-connect/token
+      userAuthorizationUri: http://127.0.0.1:8080/auth/realms/master/protocol/openid-connect/auth
     resourceserver:
       jwk:
         jwk-set-uri: http://127.0.0.1:8080/auth/realms/master/protocol/openid-connect/certs
-

@@ -3,8 +3,12 @@ package com.imolczek.training.spring.springsecuritysample.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.annotation.CurrentSecurityContext;
+import org.springframework.web.bind.annotation.RestController;
 
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -23,31 +27,34 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
     
+	@Value("${security.oauth2.client.userAuthorizationUri}") String authUrl;
+	@Value("${security.oauth2.client.accessTokenUri}") String tokenUrl;
+	
 	@Bean
     public Docket api() { 
-		/*
 		List<AuthorizationScope> scopes = new ArrayList<>();
-		scopes.add(new AuthorizationScope("SAY_HELLO", "Right to say hello"));
-		scopes.add(new AuthorizationScope("openid", "OIDC"));
+		scopes.add(new AuthorizationScope("accounts:list", "Right to list accounts"));
+		scopes.add(new AuthorizationScope("accounts:details", "Right to consult accounts details"));
 		
 		List<GrantType> grantTypes = new ArrayList<>();
 		
 		String clientIdName = null;
 		String clientSecretName = null;
-		String tokenRequestUrl = "http://127.0.0.1:8080/auth/realms/master/protocol/openid-connect/auth";
-		TokenRequestEndpoint tokenRequestEndpoint = new TokenRequestEndpoint(tokenRequestUrl, clientIdName, clientSecretName);
+		TokenRequestEndpoint tokenRequestEndpoint = new TokenRequestEndpoint(authUrl, clientIdName, clientSecretName);
 		
-		TokenEndpoint tokenEndpoint = new TokenEndpoint("http://127.0.0.1:8080/auth/realms/master/protocol/openid-connect/token", "jwt-token");
+		TokenEndpoint tokenEndpoint = new TokenEndpoint(tokenUrl, "jwt-token");
 		grantTypes.add(new AuthorizationCodeGrant(tokenRequestEndpoint, tokenEndpoint));
 
 		List<SecurityScheme> schemeList = new ArrayList<>();
-		schemeList.add(new OAuth("sayhello_auth", scopes, grantTypes ));
-		*/
+		schemeList.add(new OAuth("bank_auth", scopes, grantTypes));
+
         return new Docket(DocumentationType.SWAGGER_2)  
-          .select()                                  
-          .apis(RequestHandlerSelectors.any())              
-          .paths(PathSelectors.any())                          
-          .build();
-          //.securitySchemes(schemeList);                                           
+        		.ignoredParameterTypes(AuthenticationPrincipal.class)
+        		.ignoredParameterTypes(CurrentSecurityContext.class)
+        		.select()               
+                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
+        		.paths(PathSelectors.any())
+        		.build()
+    			.securitySchemes(schemeList);                                           
     }
 }
