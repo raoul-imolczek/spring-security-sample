@@ -35,8 +35,8 @@ to perform requests on behalf of a **Resource owner**.
 For each request, the **Resource server** must determine:
 
 - Whether the API Client has the right to request the method, which can be
-*scope protected*. The **scope** describes the rights obtained by the client,
-they may have been subject to the resource owner's *consent*.
+  *scope protected*. The **scope** describes the rights obtained by the client,
+  they may have been subject to the resource owner's *consent*.
 - Whether the Resource owner has the correct **role** to request the method.
 
 A **scope** is dynamically granted by the Authorization server / Resource owner to
@@ -47,7 +47,7 @@ a given API Client. For those scopes, you can decide whether they are:
 
 - **Default scopes**: they will systematically be granted by the Authorization server.
 - **Optional scopes**: they will be granted if requested by the client in the
-authorization request and may be subject to the consent of the Resource owner.
+  authorization request and may be subject to the consent of the Resource owner.
 
 Whereas the **role** is inherent to the Resource Owner.  
 
