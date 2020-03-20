@@ -595,5 +595,59 @@ http://localhost:9090/v2/api-docs
 Testing with Postman
 --------------------
 
+In order to request the API's endpoint in Postman, you'll have to request Access tokens:
+
+.. image:: docs/img/postman.png
+
+Click the *Get new access token* button and fill in the **Authorization request**:
+
+.. image:: docs/img/postman-access-token.png
+
+Be careful about which scopes you request.
+
+If the Authorization Request is correct, you should see this screen the first time
+followed by the consent screen:
+
+.. image:: docs/img/postman-keycloak-login.png
+
+As long as the user has a logged in session on Keycloak, you won't have to sign
+in again to get a token. You can see the active user sessions from the Keycloak
+administration console and force them to sign out if you wish so:
+
+.. image:: docs/img/keycloak-sessions.png
+
+As soon as a user has given a client consents, he does not need to give them again.
+If you wish to reset the consents, you can do so inside of the Keycloak administration
+console:
+
+.. image:: docs/img/keycloak-consents.png
+ 
+Once the access token has been obtained, do not forget to select it in the menu:
+
+.. image:: docs/img/postman-select-access-token.png
+ 
+And fire a request to the API:
+
+.. image:: docs/img/postman-success.png
+
+Look at the HTTP Status code. If **HTTP 200**, you're good. Otherwise read the response
+headers of payload to get a clue about why the request has been rejected.
+
+You may get **HTTP 401** if the token has expired for example.
+
+Or maybe you get **HTTP 403** because you have an insufficient scope.
+
+Try signing in with **Jane Doe** who does not have the **customer** role or request
+tokens without the necessary scopes to validate that Spring Security does the
+protection job correctly.
+
 Beyond Roles and Scopes
 -----------------------
+
+Scopes and Roles are just two kind of authorities you want to check when implementing
+access control.
+
+You may also take into account information from RFC 8693 Token Exchange:
+https://datatracker.ietf.org/doc/rfc8693/ in order to validate that the request has
+been made through the correct gateway (adding for example a new `GATEWAY_whatever`
+Authority in the claims mapper).
