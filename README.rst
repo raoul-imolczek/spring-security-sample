@@ -381,10 +381,9 @@ JWT token delivered by Keycloak.
 	}
 
 This is an example of a JWT Token delivered by Keycloak that you can make
-human readable using https://jwt.io (look at lines 33 and 38):
+human readable using https://jwt.io:
 
-.. code-block:: js
-	:linenos:
+.. code-block:: json
 
 	{
 	  "jti": "060a1258-8bfa-43fb-9694-d7abfe94c283",
