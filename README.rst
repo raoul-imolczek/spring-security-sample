@@ -383,7 +383,7 @@ JWT token delivered by Keycloak.
 This is an example of a JWT Token delivered by Keycloak that you can make
 human readable using https://jwt.io (look at lines 33 and 38):
 
-.. code-block:: json
+.. code-block:: javascript
 	:linenos:
 
 	{
