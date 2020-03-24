@@ -157,7 +157,7 @@ You also have to go under the *Credentials* tab to create a password for the use
 Do not forget to uncheck *Temporary* for the test, otherwise the user will be
 asked to change his password upon first connection.
 
-.. image:: docs/img/user-password.png
+.. image:: docs/img/user-password.PNG
 
 And finally, let's add the `customer` role to John Doe under the *Role Mappings*
 tab:
@@ -207,7 +207,7 @@ configured here matches the URL of the Spring boot microservice:
 The confidential client must obtain credentials so as to exhcange the authorization
 code for an access token. You can read it here:
 
-.. image:: docs/img/client-credentials.png
+.. image:: docs/img/client-credentials.PNG
 
 Go to the *Client Scopes* tab in order to add the optional scopes to the client.
 It means that the client must request those scopes in the Authorization request to
